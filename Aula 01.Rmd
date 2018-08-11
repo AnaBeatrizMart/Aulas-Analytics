@@ -1,0 +1,52 @@
+Centro Universitário Metodista Izabela Hendrix
+Graduação em Bioinformática
+Analytics - Aula 01
+Ministrada pelo Prof. Neylson Crepalde
+
+Por Ana Beatriz Martins
+
+Caso já não estejam instaladas, instalamos as bibliotecas necessárias para a análise.
+
+readr - usada para carregar bancos de dados
+dplyr - usada para manipular bancos de dados
+descr - usada para estatística descritiva
+haven - importa e exporta arquivos SPSS, Stata e SAS
+
+```{r}
+install.packages ("readr")
+install.packages("dplyr")
+install.packages("descr")
+install.packages("ggplot2")
+install.packages("haven")
+```
+
+Em seguida, elas devem ser carregadas.
+```{r}
+library (readr)
+library(dplyr)
+library (descr)
+library(ggplot2)
+library(haven)
+```
+
+Carregamos uma amostra da PNAD 2014
+
+```{r}
+bd <- read_sav("https://github.com/neylsoncrepalde/MODUS/blob/master/PNAD2014_30a50_novo4.sav?raw=true")
+```
+
+Investigamos o banco de dados em questão, descobrindo suas dimensões (dim), nomes das primeiras variáveis (names) e os primeiros dados disponiveis (head)
+
+```{r}
+dim(bd) 
+names(bd) 
+head(bd) 
+```
+
+Verificamos também as estatisticas descritivas de duas variaveis.
+
+```{r}
+summary(bd$isei88)
+summary(bd$anosesco)
+```
+
