@@ -10,6 +10,7 @@ Caso já não estejam instaladas, instalamos as bibliotecas necessárias para a 
 readr - usada para carregar bancos de dados |
 dplyr - usada para manipular bancos de dados |
 descr - usada para estatística descritiva |
+ggplot - usado para graficos
 haven - importa e exporta arquivos SPSS, Stata e SAS
 
 ```{r}
