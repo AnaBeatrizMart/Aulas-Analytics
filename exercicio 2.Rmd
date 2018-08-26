@@ -1,0 +1,55 @@
+------------------------
+Analytics - Exercicio 02
+Por Ana Beatriz Martins
+------------------------
+
+# anosesco = b0 + b1 = escpai
+# isei88 = b0 + b1 = isei88pai
+
+Primeiro, chamei as bibliotecas.
+```{r}
+library(readr)
+library(ggplot2)
+library (haven)
+library(dplyr)
+```
+
+Carreguei o banco de dados.
+
+```{r}
+bd = read_sav("https://github.com/neylsoncrepalde/MODUS/blob/master/PNAD2014_30a50_novo4.sav?raw=true")
+```
+
+Para este exercicio considerei Y= anosesco e X= isei88 e fiz um modelo de regressão.
+
+```{r}
+reg = lm (anosesco ~ isei88, data = bd)
+```
+
+Com o comando summary, tive acesso às estatisticas descritivas da regressão.
+Através dela ficou constado que 
+- os valores são estatisticamente significativos (comprovado pelas três estrelas),
+- para uma pessoa analfabeta, estima-se um isei de 4 pts
+- a cada ano de estudo estima-se 0,1 pts no isei
+
+Além disso,
+- o grau de liberdade é 4381 para 3509.
+- o isei do individuo explica 0,27% da escolaridade do mesmo
+- a estatistica F indica que a hipotese não é nula
+```{r}
+summary(reg)
+```
+
+Usei confint para analisar saber o intervalo de confiança, que me diz que o isei de um analfabeto fica entre 3,8 e 4,2, alem de que o isei aumenta entre 0,13 e 0,14 pontos por ano de estudo.
+
+```{r}
+confint(reg)
+```
+
+Plotando os graficos:
+Eles seguem uma direção parecida,, como uma regressão simples, além de mostrar a linearidade.
+
+```{r}
+plot(reg, col="#7B68EE")
+```
+
