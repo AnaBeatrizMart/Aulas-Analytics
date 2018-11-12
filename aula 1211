@@ -4,6 +4,9 @@
 # Prof. Neylson Crepalde
 ###########################
 
+# Analise de componetes prinipais é muito usada para fazer calculo de indice
+# Nesse caso, vamos pegar varias empresas 
+
 # instala pacotes necessários
 install.packages("devtools")
 install.packages("FactoMineR")
@@ -60,20 +63,44 @@ res.pca <- PCA(bd[2:4], scale.unit=FALSE, graph=TRUE, ncp=3)
 res.pca$eig #Autovalores e % de explicação
 
 # Verifica os loadings (e1, e2, e3)
+
 loadings_pca1 <- sweep(res.pca$var$coord,2,
                        sqrt(res.pca$eig[1:ncol(res.pca$var$coord),1]),FUN="/")
 print(loadings_pca1)
+
+# Primeira coluna:
+# Ganho bruto está subindo
+# Ganho liquido quase não sobe
+# Patrimonio suiu muito 
+
+# Quanto mais sobe a dimensão um, mais sobe ganho liquido e...
+
+
 
 #Correlações entre as variáveis e CPs
 cor_pca1 <- res.pca$var$cor; 
 print(cor_pca1)
 
+# 0,9 ganho bruto
+# 0,097 ganho liquido
+# -0,426 patrimonio
+
+
 #Obtendo os escores de cada indivíduo em cada uma das PCs:
 interesse = bd[,2:4]
+
+#loop alinhado
+# cada linha do interesse e as cargas de cada componente pincipal gerad e somar
 scores_pca1 <- matrix( ,nrow(interesse),ncol(interesse))
 for(i in 1:nrow(interesse)){
   for(j in 1:ncol(interesse)) scores_pca1[i,j] <- sum(interesse[i,]*loadings_pca1[,j])
 }
+
+# Todas as varaveis estão correlacionada positivamente
+# Indice geral de desempenho da empresa onde a variavel de maior peso é o patrimonio, seguido de ganho bruto e liq
+ 
+
+# Esse score não diz nada por si próprio. Ele é um indice que agrega as três variaveis
 print(scores_pca1)
 
 # Exercício - estimar uma análise de componentes principais para os dados de avaliação de coxinhas
