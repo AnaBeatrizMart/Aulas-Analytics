@@ -90,7 +90,7 @@ print(cor_pca1)
 interesse = bd[,2:4]
 
 #loop alinhado
-# cada linha do interesse e as cargas de cada componente pincipal gerad e somar
+# cada linha do interesse e as cargas de cada componente pincipal gerado e somar
 scores_pca1 <- matrix( ,nrow(interesse),ncol(interesse))
 for(i in 1:nrow(interesse)){
   for(j in 1:ncol(interesse)) scores_pca1[i,j] <- sum(interesse[i,]*loadings_pca1[,j])
@@ -103,6 +103,30 @@ for(i in 1:nrow(interesse)){
 # Esse score não diz nada por si próprio. Ele é um indice que agrega as três variaveis
 print(scores_pca1)
 
+#######################################################################################################
+
 # Exercício - estimar uma análise de componentes principais para os dados de avaliação de coxinhas
 help("MingotiTb3.5")
 bd = MingotiTb3.5
+
+# Matriz de variancia e covariancia, autovalores e percentual de variancia 
+
+# 1 - Matriz de variancia e covariancia
+matriz_cov = cov(bd[2:5])
+matriz_cov
+# Recheio tem maior peso, depois o sabor, massa e por ultimo aroma
+
+
+# Autovalores 
+autovalores <- eigen(matriz_cov)$values #eigen gera auto valores e auto vetores 
+
+# Percentual de
+perc.exp <- autovalores/sum(autovalores) # autovalores dividido pelo somatorio dos autovalores
+perc.exp
+# O primeiro componente explica 93,7% das quatro variaveis.
+# O segundo contem 3,5% de cada variavel
+
+perc.exp.acum <- cumsum(perc.exp)
+print(cbind(autovalores,perc.exp,perc.exp.acum))
+autovalores
+
